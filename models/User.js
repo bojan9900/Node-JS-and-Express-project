@@ -32,7 +32,18 @@ userSchema.pre('save', async function (next) {
     next();
 });
 
-// Fire a hook after new user has been saved to the database
+// Static method to login user
+userSchema.statics.login = async function(email, password) {
+    const user = await this.findOne({ email })
+    if (user){
+       const auth = await bcrypt.compare(password, user.password)
+       if (auth) {
+        return user;
+       }
+       throw Error('Invalid password')
+    }
+    throw Error('User not found')
+}
 
 
 
