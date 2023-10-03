@@ -32,6 +32,9 @@ userSchema.pre('save', async function (next) {
     next();
 });
 
+// Fire a hook after new user has been saved to the database
+
+
 
 //Creating model
 const User = mongoose.model('user', userSchema);
